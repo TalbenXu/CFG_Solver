@@ -6,8 +6,8 @@ from grammar_reader import read_grammar
 graph_file = input("Please Enter Graph File Name\n").strip()
 grammar_file = input("Please Enter Grammar File Name\n").strip()
 if graph_file == "" and grammar_file == "":
-    graph_file = '/Users/mac/Desktop/Projects/graph/1.txt'
-    grammar_file = '/Users/mac/Desktop/Projects/graph/2.txt'
+    graph_file = '1.txt'
+    grammar_file = '2.txt'
 g = read_graph(graph_file)
 print("The original graph:-----------------------")
 g.print_graph()

@@ -61,6 +61,7 @@ class Graph:
         return output_list
     
     def check_edge(self, u, v, lable):
+        print(self.symbol_pair)
         if (u,v) in self.symbol_pair[lable]:
             return True
         return False
