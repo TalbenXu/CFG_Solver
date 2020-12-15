@@ -76,6 +76,7 @@ print("Ending graph: --------------------------")
 g.print_graph()
 print(g.output_set())
 g.dump_dot()
+
 with open('dump_dot.dot','r') as f1:
-    src = Source(f1.readline())
-    src.render()
+    s = Source(f1.read(), filename="test.gv", format="png")
+    s.render()
