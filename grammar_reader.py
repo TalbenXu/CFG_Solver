@@ -41,6 +41,13 @@ def start_transform(start_symble, grammar):
         start_symble = 'S'
     return start_symble, grammar
 
+def Term_transfomr(start_symble, grammar):
+    pass
+
+def grammar_new(file_name):
+    with open(file_name, 'r') as f:
+        
+
 
 
 
