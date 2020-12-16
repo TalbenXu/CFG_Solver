@@ -5,8 +5,14 @@ digraph CFG{
 	n4;
 	n5;
 	n1->n2[label="A"]
+	n2->n4[label="A"]
+	n2->n3[label="A"]
+	n1->n3[label="A"]
 	n2->n3[label="a"]
 	n1->n3[label="b"]
 	n3->n4[label="b"]
 	n1->n5[label="B"]
+	n2->n4[label="S0"]
+	n2->n3[label="S0"]
+	n1->n3[label="S0"]
 }
