@@ -80,6 +80,6 @@ if __name__ == '__main__':
     print(g.output_set())
     g.dump_dot()
 
-    with open('dump_dot.dot','r') as f1:
-        s = Source(f1.read(), filename="test.gv", format="png")
+    with open('generated_file/dump_dot.dot','r') as f1:
+        s = Source(f1.read(), filename="generated_file/test.gv", format="png")
         s.render()

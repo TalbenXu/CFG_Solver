@@ -12,3 +12,4 @@ Grammar:
 suggestive txt(as demo/simple_grammar_example.dot in demo,' 'space separete, ; delimite except last line)
 
 demo ( contain simple example input )
+generated_file( contain dot file and png)

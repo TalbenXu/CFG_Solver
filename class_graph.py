@@ -71,7 +71,7 @@ class Graph:
         return self.symbol_pair["A"]
 
     def dump_dot(self):
-        with open('dump_dot.dot','w') as f:
+        with open('generated_file/dump_dot.dot','w') as f:
             f.write('digraph CFG{\n')
             for node in self.vertices:
                 f.write(f'\tn{node};\n')
