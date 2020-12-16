@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #IT's assumed that starting variable is the first typed
-import sys, helper
+import sys
+import helper
 
 left, right = 0, 1
 
@@ -124,6 +125,14 @@ def UNIT(productions, variables):
 		i+=1
 	return result
 
+def STBDU_transformation(modelPath):
+	K, V, Productions = helper.loadModel( modelPath )
+	Productions = START(Productions, variables=V)
+	Productions = TERM(Productions, variables=V)
+	Productions = BIN(Productions, variables=V)
+	Productions = DEL(Productions)
+	Productions = UNIT(Productions, variables=V)
+	return Productions
 
 if __name__ == '__main__':
 	if len(sys.argv) > 1:
@@ -131,14 +140,7 @@ if __name__ == '__main__':
 	else:
 		modelPath = 'model.txt'
 	
-	K, V, Productions = helper.loadModel( modelPath )
 
-	Productions = START(Productions, variables=V)
-	Productions = TERM(Productions, variables=V)
-	Productions = BIN(Productions, variables=V)
-	Productions = DEL(Productions)
-	Productions = UNIT(Productions, variables=V)
-	
 	print( helper.prettyForm(Productions) )
 	print( len(Productions) )
 	open('out.txt', 'w').write(	helper.prettyForm(Productions) )

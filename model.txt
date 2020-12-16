@@ -3,7 +3,7 @@ Terminals:
 Variables:
 Expr Term AddOp MulOp Factor Primary
 Productions:
-Expr -> Term | Expr AddOp Term | AddOp Term;
+Expr -> Term | Expr AddOp Term | AddOp Term | ε;
 Term -> Factor | Term MulOp Factor;
 Factor -> Primary | Factor ^ Primary;
 Primary -> number | variable;

@@ -7,7 +7,7 @@ graph_file = input("Please Enter Graph File Name\n").strip()
 grammar_file = input("Please Enter Grammar File Name\n").strip()
 if graph_file == "" and grammar_file == "":
     graph_file = '1.txt'
-    grammar_file = '2.txt'
+    grammar_file = 'model.txt'
 g = read_graph(graph_file)
 print("The original graph:-----------------------")
 g.print_graph()
@@ -22,11 +22,12 @@ Worklist = g.output_edge()
 # add epilon production as edge to graph
 for left_variable in grammar.keys():
     for rules in grammar[left_variable]:
-        if rules[0] == 'ε':
-            for node in g.vertices.keys():
-                if g.edges[g.edge_indices[node]][g.edge_indices[node]] == []:
-                    g.add_edge(node, node, left_variable)
-                    Worklist.append([left_variable,node,node])
+        for rule in rules:
+            if rule[0] == 'ε':
+                for node in g.vertices.keys():
+                    if g.edges[g.edge_indices[node]][g.edge_indices[node]] == []:
+                        g.add_edge(node, node, left_variable)
+                        Worklist.append([left_variable,node,node])
 print("Add epilon production as edge to graph","--"*10)
 g.print_graph()
 # Do the work in Worklist
