@@ -1,14 +1,16 @@
+from graphviz import Source
+from graph_reader import read_graph
+from grammar_reader import read_grammar
+
 if __name__ == '__main__':
     # Algorithm 1: The standard CFL-reachability algorithm
-    from graphviz import Source
-    from graph_reader import read_graph
-    from grammar_reader import read_grammar
     # input
     graph_file = input("Please Enter Graph File Name\n").strip()
     grammar_file = input("Please Enter Grammar File Name\n").strip()
     if graph_file == "" and grammar_file == "":
         graph_file = 'demo/simple_dot_example.dot'
         grammar_file = 'demo/simple_grammar_example2.txt'
+    
     g = read_graph(graph_file)
     print("The original graph:-----------------------")
     g.print_graph()
