@@ -23,7 +23,7 @@ Worklist = g.output_edge()
 for left_variable in grammar.keys():
     for rules in grammar[left_variable]:
         for rule in rules:
-            if rule[0] == 'ε':
+            if rule[0] == 'e':
                 for node in g.vertices.keys():
                     if g.edges[g.edge_indices[node]][g.edge_indices[node]] == []:
                         g.add_edge(node, node, left_variable)
@@ -34,10 +34,10 @@ g.print_graph()
 while Worklist != []:
     selected_edge = Worklist.pop()
     # X = Y
-    for X, right in grammar.items():
-        for right_symbols in right:
-            if len(right_symbols) == 1 and right_symbols[0] == selected_edge[0]:
-                Y = right_symbols[0]
+    for X, right_list in grammar.items():
+        for right in right_list:
+            if len(right) == 1 and right[0] == selected_edge[0]:
+                Y = right[0]
                 for pair in g.symbol_pair[Y]:
                     if not (g.check_edge(pair[0],pair[1],X)):
                         g.add_edge(pair[0],pair[1],X)
@@ -48,17 +48,18 @@ while Worklist != []:
             if len(right_symbols) == 2 and right_symbols[0] == selected_edge[0]:
                 Y = right_symbols[0]
                 Z = right_symbols[1]
-                for pair in g.symbol_pair[Z]:
-                    j = selected_edge[2]
-                    i = selected_edge[1]
-                    k = pair[1]
-                    if pair[0] == selected_edge[2]:
-                        if not (g.check_edge(i,k,X)):
-                            print(selected_edge)
-                            print(i,j,k,X,Y,Z)
-                            g.add_edge(i,k,X)
-                            Worklist.append([X,i,k])
-                            g.print_graph()
+                if Z in g.symbol_pair:
+                    for pair in g.symbol_pair[Z]:
+                        j = selected_edge[2]
+                        i = selected_edge[1]
+                        k = pair[1]
+                        if pair[0] == selected_edge[2]:
+                            if not (g.check_edge(i,k,X)):
+                                print(selected_edge)
+                                print(i,j,k,X,Y,Z)
+                                g.add_edge(i,k,X)
+                                Worklist.append([X,i,k])
+                                g.print_graph()
     # X = ZY
     for X, right in grammar.items():
         for right_symbols in right:
