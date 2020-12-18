@@ -14,11 +14,13 @@ def ebnf_grammar_loader(start_symbol, production_rules):
     grammar = dict()
     for rule in production_rules:
         _ = rule.split('->')
-        head, LHS = _[0].strip(), _[1].split()
+        head, LHS = _[0].strip(), _[1]
         if head not in grammar:
             grammar[head] = []
-        grammar[head].append(LHS)
-    print(grammar)
+        for rule in LHS.split('|'):
+            rule = rule.split()
+            grammar[head].append(rule)
+    return start_symbol, grammar
 
 if __name__ == "__main__":
     ebnf_grammar_loader(*ebnf_file_reader())
