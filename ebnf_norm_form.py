@@ -9,7 +9,16 @@ def ebnf_file_reader():
     start_symbol, production_rules = match_instance.group(1).strip(), match_instance.group(2).split(';')
     return start_symbol, production_rules
 
-
+def ebnf_grammar_loader(start_symbol, production_rules):
+    # paser the string to dict datastructure
+    grammar = dict()
+    for rule in production_rules:
+        _ = rule.split('->')
+        head, LHS = _[0].strip(), _[1].split()
+        if head not in grammar:
+            grammar[head] = []
+        grammar[head].append(LHS)
+    print(grammar)
 
 if __name__ == "__main__":
-    ebnf_file_reader()
+    ebnf_grammar_loader(*ebnf_file_reader())
