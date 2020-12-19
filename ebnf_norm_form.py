@@ -1,4 +1,5 @@
 import re
+import copy
 new_terminal_subscript = 0
 def ebnf_file_reader(filename):
     search_pattern = re.compile(r'Start:([\s\S]*)Productions:([\s\S]*)')
@@ -35,7 +36,6 @@ def num_generator():
     global new_terminal_subscript
     new_terminal_subscript += 1
     return new_terminal_subscript
-
 
 # Convert every repetition * or { E } to a fresh non-terminal X and add
 # X = $\epsilon$ | X E
@@ -114,10 +114,69 @@ def ebnf_group_replace(grammar):
                     rule.remove(element)
     return grammar
 
-def ebnf_BIN(grammar):
-    
+def check_head(grammar, rule):
+    for in_head in grammar:
+        for in_rule in grammar[in_head]:
+            if rule in in_rule:
+                return in_head
+    return False   
 
-def ebnf_bnf_convertor(filename):
+def ebnf_BIN(grammar):
+    new_grammar = dict()
+    for head in grammar:
+        for rule in grammar[head]:
+            if len(rule) >= 3:
+                long_rule = copy.copy(rule)
+                first = long_rule.pop(0)
+                rule.clear()
+                rule.append(first)
+                # check whether has this rule
+                X = check_head(new_grammar,long_rule)
+                if X == False:
+                    X = check_head(grammar, long_rule)
+                if X:
+                    rule.append(X)
+                    break
+                else:
+                    X = f'X{num_generator()}'
+                    rule.append(X)
+                new_grammar[X] = []
+                temp = copy.copy(long_rule)
+                if len(long_rule) == 2:
+                    new_grammar[X].append(temp)
+                    long_rule.clear()
+                else:
+                    first = long_rule.pop(0)
+                    RHX = check_head(new_grammar,long_rule)
+                    if RHX == False:
+                        RHX = check_head(grammar,long_rule)
+                    if RHX == False:
+                        RHX = f'X{num_generator()}'
+                    new_grammar[X].append([first, RHX])
+                while len(long_rule) >= 2:
+                    if len(long_rule) == 2:
+                        new_grammar[RHX] = []
+                        new_grammar[RHX].append(long_rule)
+                        break
+                    first = long_rule.pop(0)
+                    print(f'long{long_rule}')
+                    # check whether has this rule
+                    X = RHX
+                    RHX = check_head(new_grammar,long_rule[1:])
+                    if RHX == False:
+                        RHX = check_head(grammar,long_rule[1:])
+                    if RHX == False:
+                        RHX = f'X{num_generator()}'
+                    temp_rule = [first,RHX]
+                    new_grammar[X] = []
+                    new_grammar[X].append(temp_rule)
+
+    for new_head in new_grammar:
+        grammar[new_head] = new_grammar[new_head]
+    return grammar
+                
+
+def ebnf_bnf_normal_convertor(filename):
     start_symbol, production_rules = ebnf_file_reader(filename)
     grammar = ebnf_grammar_loader(production_rules)
     grammar = ebnf_sign_replace(grammar, '*')
@@ -127,4 +186,4 @@ def ebnf_bnf_convertor(filename):
     return start_symbol, grammar
 
 if __name__ == "__main__":
-    print(ebnf_bnf_convertor('demo/simple_EBNF_example.txt'))
+    print(ebnf_bnf_normal_convertor('demo/simple_EBNF_example.txt'))
