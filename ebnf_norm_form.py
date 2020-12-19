@@ -35,45 +35,95 @@ def num_generator():
     global new_terminal_subscript
     new_terminal_subscript += 1
     return new_terminal_subscript
+
+
 # Convert every repetition * or { E } to a fresh non-terminal X and add
 # X = $\epsilon$ | X E
-def ebnf_repetition_replace(grammar):
+# Convert every option ? [ E ] to a fresh non-terminal X and add
+# X = $\epsilon$ | E.
+def ebnf_sign_replace(grammar, sign):
+    if sign != "?" and sign != "*":
+        raise Exception('Only accept ? or *')
     # select * position
+    new_rule_checker = dict()
     for head in grammar:
         for rule in grammar[head]:
             i = 0
             while i < len(rule):
-                if rule[i] == "*":
-                    X = f'X{num_generator()}'
+                if rule[i] == sign:
                     if i == 0:
                         raise Exception('Ebnf form is not correct!')
                     elif rule[i-1] != ")":
-                        rule[i-1:i+1] = [X]
+                        repetition_start = i-1
                     else:
-                        brack_start = ebnf_bracket_match(rule, i)
-                        rule[brack_start:i+1] = [X]
-                        print(rule)
-                        i = brack_start
+                        repetition_start = ebnf_bracket_match(rule, i)
+                    repetition = ' '.join(rule[repetition_start:i+1])
+                    if repetition in new_rule_checker:
+                        rule[repetition_start:i+1] = [new_rule_checker[repetition]]
+                    else:
+                        X = f'X{num_generator()}'
+                        rule[repetition_start:i+1] = [X]
+                        new_rule_checker[repetition] = X
+                    i = repetition_start
                 i += 1
+    for repetition in new_rule_checker:
+        new_nonterminal = new_rule_checker[repetition]
+        if sign == '*':
+            temp_list = [new_nonterminal]
+        else:
+            temp_list = []
+        temp_list.extend(repetition[0:-1].split())
+        grammar[new_nonterminal] = [['ε'],temp_list]
     return grammar
 
-# Convert every option ? [ E ] to a fresh non-terminal X and add
-# X = $\epsilon$ | E.
-# (We can convert X = A [ E ] B. to X = A E B | A B.)
-def ebnf_option_replace(grammar):
+    new_rule_checker = dict()
+    for head in grammar:
+        for rule in grammar[head]:
+            i = 0
+            while i < len(rule):
+                if rule[i] == "?":
+                    if i == 0:
+                        raise Exception('Ebnf form is not correct!')
+                    elif rule[i-1] != ")":
+                        repetition_start = i-1
+                    else:
+                        repetition_start = ebnf_bracket_match(rule, i)
+                    repetition = ' '.join(rule[repetition_start:i+1])
+                    if repetition in new_rule_checker:
+                        rule[repetition_start:i+1] = [new_rule_checker[repetition]]
+                    else:
+                        X = f'X{num_generator()}'
+                        rule[repetition_start:i+1] = [X]
+                        new_rule_checker[repetition] = X
+                    i = repetition_start
+                i += 1
+    for repetition in new_rule_checker:
+        new_nonterminal = new_rule_checker[repetition]
+        temp_list = []
+        temp_list.extend(repetition[0:-1].split())
+        grammar[new_nonterminal] = [['ε'],temp_list]
     return grammar
 
 # Convert every group ( E ) to a fresh non-terminal X and add
 # X = E.
 def ebnf_group_replace(grammar):
+    for head in grammar:
+        for rule in grammar[head]:
+            for element in rule:
+                if element == '(' or element == ')':
+                    rule.remove(element)
     return grammar
+
+def ebnf_BIN(grammar):
+    
 
 def ebnf_bnf_convertor(filename):
     start_symbol, production_rules = ebnf_file_reader(filename)
     grammar = ebnf_grammar_loader(production_rules)
-    grammar = ebnf_repetition_replace(grammar)
-    grammar = ebnf_option_replace(grammar)
+    grammar = ebnf_sign_replace(grammar, '*')
+    grammar = ebnf_sign_replace(grammar, '?')
     grammar = ebnf_group_replace(grammar)
+    grammar = ebnf_BIN(grammar)
     return start_symbol, grammar
 
 if __name__ == "__main__":

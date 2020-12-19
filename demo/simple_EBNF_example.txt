@@ -6,4 +6,4 @@ Start:
    M  
 Productions:  
    M -> dbar V d;  
-   V -> ( M ? abar ) * M ? ( M ? abar ) * ( a M ?) | c *
+   V -> ( M ? abar ) * M ? ( a M ? ) 
