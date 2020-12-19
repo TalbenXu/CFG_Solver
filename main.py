@@ -1,20 +1,20 @@
 from graphviz import Source
 from graph_reader import read_graph
-from grammar_reader import read_grammar
-
+# from grammar_reader import read_grammar
+from ebnf_norm_form import ebnf_bnf_normal_convertor
 if __name__ == '__main__':
     # Algorithm 1: The standard CFL-reachability algorithm
     # input
     graph_file = input("Please Enter Graph File Name\n").strip()
     grammar_file = input("Please Enter Grammar File Name\n").strip()
     if graph_file == "" and grammar_file == "":
-        graph_file = 'demo/simple_dot_example.dot'
+        graph_file = 'demo/ebnf_node.txt'
         grammar_file = 'demo/simple_grammar_example2.txt'
     
     g = read_graph(graph_file)
     print("The original graph:-----------------------")
     g.print_graph()
-    start_symble, grammar = read_grammar(grammar_file)
+    start_symble, grammar = ebnf_bnf_normal_convertor('demo/simple_EBNF_example.txt')
     print("The grammar: ---------------------------")
     print(grammar)
     print("--"*10)
@@ -24,13 +24,11 @@ if __name__ == '__main__':
     Worklist = g.output_edge()
     # add epilon production as edge to graph
     for left_variable in grammar.keys():
-        for rules in grammar[left_variable]:
-            for rule in rules:
-                if rule[0] == 'e':
-                    for node in g.vertices.keys():
-                        if g.edges[g.edge_indices[node]][g.edge_indices[node]] == []:
-                            g.add_edge(node, node, left_variable)
-                            Worklist.append([left_variable,node,node])
+        for rule in grammar[left_variable]:
+            if rule == ['ε']:
+                for node in g.vertices.keys():
+                    g.add_edge(node, node, left_variable)
+                    Worklist.append([left_variable,node,node])
     print("Add epilon production as edge to graph","--"*10)
     g.print_graph()
     # Do the work in Worklist

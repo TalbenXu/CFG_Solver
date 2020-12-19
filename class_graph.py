@@ -68,7 +68,7 @@ class Graph:
         return False
     
     def output_set(self):
-        return self.symbol_pair["A"]
+        return self.symbol_pair["M"]
 
     def dump_dot(self):
         with open('generated_file/dump_dot.dot','w') as f:
@@ -76,8 +76,9 @@ class Graph:
             for node in self.vertices:
                 f.write(f'\tn{node};\n')
             for symbol in self.symbol_pair:
-                for pair in self.symbol_pair[symbol]:
-                    f.write(f'\tn{pair[0]}->n{pair[1]}[label="{symbol}"]\n')
+                if symbol in 'MVaabarddbar':
+                    for pair in self.symbol_pair[symbol]:
+                        f.write(f'\tn{pair[0]}->n{pair[1]}[label="{symbol}"]\n')
             f.write('}')
 
 # print(str(len(g.vertices)))
