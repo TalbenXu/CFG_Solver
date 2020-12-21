@@ -17,7 +17,7 @@ import re
 from class_graph import *
 
 def read_dot_file(filename):
-    edge_pattern = re.compile(r'(\w+)\s*->\s*(\w+)\s*\[.*label="(.*)"')
+    edge_pattern = re.compile(r'(\w+)\s*->\s*(\w+)\s*\[.*color=(.*)\]')
     node_pattern = re.compile(r'(\w+)')
     with open(filename, 'r') as f:
         g = Graph()
@@ -38,6 +38,12 @@ def read_dot_file(filename):
                         node_i2 = Vertex(node_2)
                         g.add_vertex(node_i1)
                         g.add_vertex(node_i2)
+                        if label == "red":
+                            label = 'd'
+                            g.add_edge(node_2,node_1,label+'bar')
+                        elif label == "black" or label == "purple":
+                            label = 'a'
+                            g.add_edge(node_2,node_1,label+'bar')
                         g.add_edge(node_1,node_2,label)
                 else:
                     match = node_pattern.search(line)

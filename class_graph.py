@@ -39,19 +39,20 @@ class Graph:
             return False
             
     def print_graph(self):
-        print('      ', end='')
-        for v, i in sorted(self.edge_indices.items()):
-            print(f'{v:9}', end='')
-        print()
-        for v, i in sorted(self.edge_indices.items()):
-            print(v + ' |', end='')
-            substr = ""
-            for j in range(len(self.edges)):
-                for k in self.edges[i][j]:
-                    substr += str(k) 
-                print(f'{substr:8}|', end='')
-                substr = ""
-            print(' ')    
+        # print('      ', end='')
+        # for v, i in sorted(self.edge_indices.items()):
+        #     print(f'{v:9}', end='')
+        # print()
+        # for v, i in sorted(self.edge_indices.items()):
+        #     print(v + ' |', end='')
+        #     substr = ""
+        #     for j in range(len(self.edges)):
+        #         for k in self.edges[i][j]:
+        #             substr += str(k) 
+        #         print(f'{substr:8}|', end='')
+        #         substr = ""
+        #     print(' ')
+        pass
     
     def output_edge(self):
         output_list = []

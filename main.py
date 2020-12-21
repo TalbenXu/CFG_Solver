@@ -8,12 +8,12 @@ if __name__ == '__main__':
     graph_file = input("Please Enter Graph File Name\n").strip()
     grammar_file = input("Please Enter Grammar File Name\n").strip()
     if graph_file == "" and grammar_file == "":
-        graph_file = 'demo/ebnf_node.txt'
-        grammar_file = 'demo/simple_grammar_example2.txt'
+        graph_file = 'demo/10-mcf.txt-peg.dot'
+        grammar_file = 'demo/simple_EBNF_example.txt'
     
     g = read_graph(graph_file)
     print("The original graph:-----------------------")
-    g.print_graph()
+    # g.print_graph()
     start_symble, grammar = ebnf_bnf_normal_convertor('demo/simple_EBNF_example.txt')
     print("The grammar: ---------------------------")
     print(grammar)
@@ -30,7 +30,7 @@ if __name__ == '__main__':
                     g.add_edge(node, node, left_variable)
                     Worklist.append([left_variable,node,node])
     print("Add epilon production as edge to graph","--"*10)
-    g.print_graph()
+    # g.print_graph()
     # Do the work in Worklist
     while Worklist != []:
         selected_edge = Worklist.pop()
@@ -56,8 +56,8 @@ if __name__ == '__main__':
                             k = pair[1]
                             if pair[0] == selected_edge[2]:
                                 if not (g.check_edge(i,k,X)):
-                                    print(selected_edge)
-                                    print(i,j,k,X,Y,Z)
+                                    # print(selected_edge)
+                                    # print(i,j,k,X,Y,Z)
                                     g.add_edge(i,k,X)
                                     Worklist.append([X,i,k])
                                     g.print_graph()
@@ -76,10 +76,10 @@ if __name__ == '__main__':
                                 g.add_edge(k,j,X)
                                 Worklist.append([X,k,j])
     print("Ending graph: --------------------------")
-    g.print_graph()
-    print(g.output_set())
+    # g.print_graph()
+    # print(g.output_set())
     g.dump_dot()
 
-    with open('generated_file/dump_dot.dot','r') as f1:
-        s = Source(f1.read(), filename="generated_file/test.gv", format="png")
-        s.render()
+    # with open('generated_file/dump_dot.dot','r') as f1:
+    #     s = Source(f1.read(), filename="generated_file/test.gv", format="png")
+    #     s.render()
