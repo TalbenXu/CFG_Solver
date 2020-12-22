@@ -183,7 +183,9 @@ def ebnf_bnf_normal_convertor(filename):
     grammar = ebnf_sign_replace(grammar, '?')
     grammar = ebnf_group_replace(grammar)
     grammar = ebnf_BIN(grammar)
-    return start_symbol, grammar
+    return grammar
 
-if __name__ == "__main__":
-    print(ebnf_bnf_normal_convertor('demo/simple_EBNF_example.txt'))
+def grammar(filename):
+    c_grammar = ebnf_bnf_normal_convertor(filename)
+    return c_grammar
+        

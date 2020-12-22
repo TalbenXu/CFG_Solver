@@ -14,7 +14,6 @@ suggestive txt(as demo/simple_grammar_example.dot in demo,' 'space separete, ; d
 demo ( contain simple example input )
 generated_file( contain dot file and png)
 
-# current working
 
 Turn EBNF to Normal Form
 Algorithm:
@@ -35,8 +34,8 @@ Productions:
    M -> dbar V d;  
    V -> ( M ? abar ) \* M ? ( a M ?)
 
-working:  
- Currently speed is low, next step while abstract the ds_structure and solver adjust the internal representation
+# Current Working:  
+ Currently speed is low, next step while abstract the ds_structure and solver and adjust the internal representation
 
 the idea file structure
 input(dir)(five dot file 1MB 2MB 4MB 8MB 16MB)
@@ -45,15 +44,16 @@ output(dir) (dot source)
 CFGR.py (driver program using certain combination of solver and structure)
 solver.py (overall class containing differenct instance)
 graph.py( overall class containing different graph)
-Utility.py( containing grammar reader, graph_reader)
+grammar.py (turn CFG to caronical form)
 
 Goal:
 for 1MB file speed need to be at 2mins
 for 2MB file speed need to be at 8mins
 for 4MB file speed need to be at 10hrs
-for 8MB file speed need to run at cloudlab
-for 16MB file speed need to run at cloudlab
+for 8MB file speed need to run at cloudlab (in cubic time complexity)
+for 16MB file speed need to run at cloudlab (in cubic time complexity)
 
-1. Two matrix predecesesor decenser
-2. Numpy or Tenserflow optimzation
+1. Two matrix predecesesor decenser ( or other structure good in certain usage add lookup)
+2. Numpy or Tenserflow optimzation 
 3. Cython using compile method
+4. cloud run
