@@ -233,6 +233,7 @@ def STBDU_transformation(modelPath):
 	Productions = BIN(Productions, variables=V)
 	Productions = DEL(Productions)
 	Productions = UNIT(Productions, variables=V)
+	print(K)
 	return Productions
 
 if __name__ == '__main__':

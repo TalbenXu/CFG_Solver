@@ -57,3 +57,5 @@ for 16MB file speed need to run at cloudlab (in cubic time complexity)
 2. Numpy or Tenserflow optimzation 
 3. Cython using compile method
 4. cloud run
+
+check the solver and give them a universal name:

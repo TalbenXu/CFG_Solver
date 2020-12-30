@@ -21,6 +21,9 @@ class Graph:
     def check_edge(self, u, v, lable):
         return self.ds_structure.check_edge(u, v, lable)
     
+    def new_check_edge(self, u, v, lable):
+        return self.ds_structure.new_check_edge(u, v, lable)
+
     def output_set(self):
         return self.ds_structure.output_set()
     

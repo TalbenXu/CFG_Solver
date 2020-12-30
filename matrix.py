@@ -85,14 +85,18 @@ class Matrix:
         if u in self.vertices and v in self.vertices:
             self.edges[self.edge_indices[u]][self.edge_indices[v]].append(label)
             if label in self.symbol_pair.keys():
-                if (u,v) not in self.symbol_pair[label]:
+                if self.new_check_edge(u, v, label):
                     self.symbol_pair[label].append((u,v))
             else:
                 self.symbol_pair[label] = []
                 self.symbol_pair[label].append((u,v))
             return True
+        elif u not in self.vertices and v in self.vertices:
+            raise Exception(f'Node {u} is not in the graph')
+        elif v not in self.vertices and u in self.vertices:
+            raise Exception(f'Node {v} is not in the graph')
         else:
-            return False
+            raise Exception(f'Node {u} and Node {v} are not in the graph')
             
     def output_edge(self):
         output_list = []
@@ -107,6 +111,18 @@ class Matrix:
         if (u,v) in self.symbol_pair[lable]:
             return True
         return False
+    
+    def new_check_edge(self, u, v, lable):
+        if isinstance(u,Vertex) and isinstance(v,Vertex):
+            u_index = self.edge_indices[u.name]
+            v_index = self.edge_indices[v.name]
+        else:
+            u_index = self.edge_indices[u]
+            v_index = self.edge_indices[v]
+        if lable in self.edges[u_index][v_index]:
+            return True
+        else:
+            return False
     
     def output_set(self):
         return self.symbol_pair["M"]

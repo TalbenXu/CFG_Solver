@@ -1,4 +1,4 @@
-from graphviz import Source
+
 
 class Solver:
     def __init__(self, mode):
@@ -9,21 +9,24 @@ class Solver:
             self.__cubic_solve(graph, grammar)
     
     def __cubic_solve(self, graph, grammar):
+        # each edge in worklist stand by [(edge, node, node)]
         Worklist = graph.output_edge()
-        for left_variable in grammar.keys():
-            for rule in grammar[left_variable]:
-                if rule == ['ε']:
-                    for node in graph.get_vertice():
-                        graph.add_edge(node, node, left_variable)
-                        Worklist.append([left_variable,node,node])
+        for nullable_variable in grammar.epsilon:
+            for node in graph.get_vertice():
+                graph.add_edge(node, node, nullable_variable)
+                Worklist.append([nullable_variable,node,node])
         while Worklist != []:
             selected_edge = Worklist.pop()
             for X, right_list in grammar.items():
+                # X: key: variable right_list : list of all right handside of production
                 for right in right_list:
+                    # X = Y
                     if len(right) == 1 and right[0] == selected_edge[0]:
                         Y = right[0]
                         for pair in graph.symbol_pair_l(Y):
-                            if not (graph.check_edge(pair[0],pair[1],X)):
+                            # O(n) for graph.symbol_pair_l return list of node pair
+                            if not graph.new_check_edge(pair[0],pair[1],X):
+                                # O(m) m stand for len(varibale, terminal) 
                                 graph.add_edge(pair[0],pair[1],X)
                                 Worklist.append([X,pair[0],pair[1]])
             for X, right in grammar.items():
@@ -37,7 +40,7 @@ class Solver:
                                 i = selected_edge[1]
                                 k = pair[1]
                                 if pair[0] == selected_edge[2]:
-                                    if not (graph.check_edge(i,k,X)):
+                                    if not (graph.new_check_edge(i,k,X)):
                                         # print(selected_edge)
                                         # print(i,j,k,X,Y,Z)
                                         graph.add_edge(i,k,X)
@@ -52,7 +55,7 @@ class Solver:
                             i = selected_edge[1]
                             k = pair[0]
                             if pair[1] == i:
-                                if not (graph.check_edge(k,j,X)):
+                                if not (graph.new_check_edge(k,j,X)):
                                     graph.add_edge(k,j,X)
                                     Worklist.append([X,k,j])
         graph.dump_dot()
