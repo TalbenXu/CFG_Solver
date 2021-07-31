@@ -1,20 +1,22 @@
 # CFG_Solver
 
-Provide mutiliple solutions for CFG Reachability Problem
+Aim: Provide mutiliple solutions for CFG Reachability Problem
 
 ## File Input
 
+Provide to the CFGR.py file arg[[Dot input], [Grammar Txt], [Matrix(data structure), [Cubic(work list Algorithm])]
+
 ### Graph:
 
-Dot file(as demo/simple_dot_example.dot.dot)
-or simple suggestive txt(as demo/simple_txt_example 1.txt in demo, each line node,node,label)
+Dot file(as demo/mini.dot.dot)
+or simple suggestive txt(as demo/mini 1.txt in demo, each line node,node,label)
 Grammar:
 suggestive txt(as demo/simple_grammar_example.dot in demo,' 'space separete, ; delimite except last line)
 
 demo ( contain simple example input )
 generated_file( contain dot file and png)
 
-
+(Grammar Solver will do)
 Turn EBNF to Normal Form
 Algorithm:
 
@@ -58,4 +60,4 @@ for 16MB file speed need to run at cloudlab (in cubic time complexity)
 3. Cython using compile method
 4. cloud run
 
-check the solver and give them a universal name:
+

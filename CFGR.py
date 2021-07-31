@@ -6,7 +6,7 @@ from graph import Graph
 from grammar import Grammar
 from solver import Solver
 
-arg = ['demo/200KB.dot','demo/VM_Grammar.txt','Matrix','Cubic']
+arg = ['demo/Mini.dot','demo/VM_Grammar.txt','Matrix','Cubic']
 
 for i in range(1, len(sys.argv)):
     arg[i-1] = sys.argv[i]    
