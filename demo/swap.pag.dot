@@ -1,0 +1,39 @@
+digraph "PAG" {
+	label="PAG";
+
+	Node0x16e2270 [shape=record,shape=Mrecord,label="{[main] RetPN ID: 16 unique return node for function main}"];
+	Node0x16e2010 [shape=record,shape=box3d,label="{[main] FIObjPN ID: 24 (base object)\n   %b = alloca i8*, align 8 \{  \}}"];
+	Node0x16e2010 -> Node0x16e0f10[color=green];
+	Node0x16e1e70 [shape=record,shape=box3d,label="{[main] FIObjPN ID: 22 (base object)\n   %a = alloca i8*, align 8 \{  \}}"];
+	Node0x16e1e70 -> Node0x16e0de0[color=green];
+	Node0x16e1cd0 [shape=record,shape=box3d,label="{[main] FIObjPN ID: 20 (base object)\n   %b1 = alloca i8, align 1 \{  \}}"];
+	Node0x16e1cd0 -> Node0x16e0cb0[color=green];
+	Node0x16e1b30 [shape=record,shape=box3d,label="{[main] FIObjPN ID: 18 (base object)\n   %a1 = alloca i8, align 1 \{  \}}"];
+	Node0x16e1b30 -> Node0x16e0b80[color=green];
+	Node0x16e1950 [shape=record,shape=box3d,label="{[main] FIObjPN ID: 15 (base object)\n main \{  \}}"];
+	Node0x16e1950 -> Node0x16e0a50[color=green];
+	Node0x16e17b0 [shape=record,shape=box3d,label="{[swap] FIObjPN ID: 5 (base object)\n swap \{  \}}"];
+	Node0x16e17b0 -> Node0x16e0200[color=green];
+	Node0x16e0f10 [shape=record,shape=box,label="{[main] ValPN ID: 23\n   %b = alloca i8*, align 8 \{  \}|{<s0>\{  \}}}"];
+	Node0x16e0f10:s0 -> Node0x16e0460[color=black,style=dashed];
+	Node0x16e0200 [shape=record,shape=box,label="{[swap] ValPN ID: 4\n swap \{  \}}"];
+	Node0x16e0de0 [shape=record,shape=box,label="{[main] ValPN ID: 21\n   %a = alloca i8*, align 8 \{  \}|{<s0>\{  \}}}"];
+	Node0x16e0de0:s0 -> Node0x16e0330[color=black,style=dashed];
+	Node0x16df960 [shape=record,shape=diamond,label="{DummyValPN ID: 3}"];
+	Node0x16df960 -> Node0x16df7f0[color=black];
+	Node0x16e00d0 [shape=record,shape=box,label="{[swap] ValPN ID: 9\n   %0 = load i8*, i8** %p, align 8 \{  \}}"];
+	Node0x16e00d0 -> Node0x16e0460[color=blue];
+	Node0x16df7f0 [shape=record,shape=diamond,label="{DummyValPN ID: 2}"];
+	Node0x16e0cb0 [shape=record,shape=box,label="{[main] ValPN ID: 19\n   %b1 = alloca i8, align 1 \{  \}}"];
+	Node0x16e0cb0 -> Node0x16e0f10[color=blue];
+	Node0x16e0b80 [shape=record,shape=box,label="{[main] ValPN ID: 17\n   %a1 = alloca i8, align 1 \{  \}}"];
+	Node0x16e0b80 -> Node0x16e0de0[color=blue];
+	Node0x16df6c0 [shape=record,shape=tab,label="{DummyObjPN ID: 1}"];
+	Node0x16e0330 [shape=record,shape=box,label="{[swap] ValPN ID: 7\n i8** %p \{ 0th arg swap  \}}"];
+	Node0x16e0330 -> Node0x16e00d0[color=red];
+	Node0x16e0460 [shape=record,shape=box,label="{[swap] ValPN ID: 8\n i8** %q \{ 1st arg swap  \}}"];
+	Node0x16e0460 -> Node0x16e0590[color=red];
+	Node0x16e0590 [shape=record,shape=box,label="{[swap] ValPN ID: 10\n   %1 = load i8*, i8** %q, align 8 \{  \}}"];
+	Node0x16e0590 -> Node0x16e0330[color=blue];
+	Node0x16e0a50 [shape=record,shape=box,label="{[main] ValPN ID: 14\n main \{  \}}"];
+}

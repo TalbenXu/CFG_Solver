@@ -1,4 +1,5 @@
 from matrix import Matrix
+from pag_matrix import PAG_Matrix
 
 class Graph:
     def __init__(self, source_file, ds_mode):
@@ -6,6 +7,8 @@ class Graph:
         self.ds_mode = ds_mode
         if ds_mode == "Matrix":
             self.ds_structure = Matrix(source_file)
+        elif ds_mode == "PAG_Matrix":
+            self.ds_structure = PAG_Matrix(source_file)
         else:
             raise Exception("This is not a valide ds_mode, ds_mode including Matrix")
     
